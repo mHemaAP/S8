@@ -3,7 +3,7 @@ This is the repository which contains the assignment work of Session 8
 
 ## Description
 
-This project includes 4 Python files: `model.py`, `utils.py`, data_transforms.py, dataset.py and one notebook `S8_BN_LN_GN.ipynb'. These files are part of a machine learning project for image classification using the CIFAR10 dataset. The project is about training a neural network model to recognize images using less than 50K parameters, and with test accuracy equal to or greater than 70% in less than 20 epochs.
+This project includes 4 Python files: `model.py`, `utils.py`, data_transforms.py, dataset.py and one notebook `S8_BN_LN_GN_models.ipynb'. These files are part of a machine learning project for image classification using the CIFAR10 dataset. The project is about training a neural network model to recognize images using less than 50K parameters, and with test accuracy equal to or greater than 70% in less than 20 epochs.
 
 Few samples in the dataset are shown below.
 
@@ -14,7 +14,7 @@ Few samples in the dataset are shown below.
 
 ### 1. model.py
 
-This file provides different neural network model architectures for image classification. This file consists of 4 new classes designed for the tasks of getting best accuracies with Batch Normalization (BN), Group Normalization (GN) and Layer Normalization (LN) - 'Net_10', 'Net_12', 'Net_13', 'Net_14', in addition the older model architectures that were designed for the tasks in S6, S7 assignments. All of these are subclasses of `torch.nn.Module` and consists of several convolution layers. These network architectures are incremental architectures meant to develop the desired model from scratch with a skeleton architecture, then reduce the model capacity to fit in the 50K parameter criteria, and then bring up model effectiveness with batch normalization, layer normalization, group normalization along with drop out. The `forward` method implements the forward pass of the model, and the `summary` method provides a summary of the model's architecture. The following shows model summary for 'Net_15' architecture which meets the parameter criteria for Batch Normalization, Layer Normalization, Group Normalizationand which is found to be the best architecture for the task at hand.
+This file provides different neural network model architectures for image classification. This file consists of 4 new classes designed for the tasks of getting best accuracies with Batch Normalization (BN), Group Normalization (GN) and Layer Normalization (LN) - 'Net_10', 'Net_12', 'Net_13', 'Net_14', in addition the older model architectures that were designed for the tasks in S6, S7 assignments. All of these are subclasses of `torch.nn.Module` and consists of several convolution layers. These network architectures are incremental architectures meant to develop the desired model from scratch with a skeleton architecture, then reduce the model capacity to fit in the 50K parameter criteria, and then bring up model effectiveness with batch normalization, layer normalization, group normalization along with drop out. The `forward` method implements the forward pass of the model, and the `summary` method provides a summary of the model's architecture. The following shows model (Model-6 in S8_BN_LN_GN_models.ipynb) summary for 'Net_15' architecture which meets the parameter criteria for Batch Normalization, Layer Normalization, Group Normalizationand which is found to be the best architecture for the task at hand.
 
 #### 1.1 Batch Normalization / Layer Normalization / Group Normalization Summary (Parameter Count = 37,664)
 ```
@@ -136,18 +136,21 @@ The following model statistics for the normalization techniques tried. These plo
 
 ##### 4.4.1. Final Optimal Model Training and Test Statistics - BN
 
+  Model-6 in S8_BN_LN_GN_models.ipynb 
   Model: Net_15, LR: 0.1, Dropout:0.05, Batch Normalization
 
 ![Model Statistics - BN](Images/BN_Net_15_Model_Plot.png)
 
 ##### 4.4.2. Final Optimal Model Training and Test Statistics - LN
 
+  Model-6 in S8_BN_LN_GN_models.ipynb
   Model: Net_15, LR: 0.01, Dropout:0.01, Layer Normalization
 
 ![Model Statistics - BN](Images/LN_Net_15_Model_Plot.png)
 
 ##### 4.4.3. Final Optimal Model Training and Test Statistics - GN
 
+  Model-6 in S8_BN_LN_GN_models.ipynb
   Model: Net_15, LR: 0.1, Dropout:0.01, Group Normalization, Group SIze: 2
   
 ![Model Statistics - BN](Images/GN_S2_Net_15_Model_Plot.png)
@@ -156,18 +159,18 @@ The following model statistics for the normalization techniques tried. These plo
 
 #### 4.5. Collection of Mis-classified Predictions
 
-The following image collection shows the mis-classified predictions for the normalization techniques tried. These images pertain to the preidctions made by the final optimal model using architecture Net_15 and the other model specifics are highlighted below
+The following image collection shows the mis-classified predictions for the normalization techniques tried. These images pertain to the preidctions made by the final optimal model (Model-6 in S8_BN_LN_GN_models.ipynb) using architecture Net_15 and the other model specifics are highlighted below
 
 
-##### 4.5.1. Mis-classified Predictions (Model: Net_15, LR: 0.1, Dropout:0.05, Batch Normalization)
+##### 4.5.1. Mis-classified Predictions (Model-6: Net_15, LR: 0.1, Dropout:0.05, Batch Normalization)
 
 ![Misclassified Prediction - BN](Images/BN_Net15_Model_Misclassified_predictions.png)
 
-##### 4.5.2. Mis-classified Predictions (Model: Net_15, LR: 0.01, Dropout:0.01, Layer Normalization)
+##### 4.5.2. Mis-classified Predictions (Model-6: Net_15, LR: 0.01, Dropout:0.01, Layer Normalization)
 
 ![Misclassified Prediction - LN](Images/LN_Net15_Model_Misclassified_predictions.png)
 
-##### 4.5.3. Mis-classified Predictions (Model: Net_15, LR: 0.1, Dropout:0.01, Group Normalization, Group SIze: 2)
+##### 4.5.3. Mis-classified Predictions (Model-6: Net_15, LR: 0.1, Dropout:0.01, Group Normalization, Group SIze: 2)
 
 ![Misclassified Prediction - GN](Images/GN_S2_Net15_Model_Misclassified_predictions.png)
 
