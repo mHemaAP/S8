@@ -3,15 +3,15 @@ import torch
 import torchvision
 import matplotlib.pyplot as plt
 
-
+#####  Get the count of correct predictions
 def GetCorrectPredCount(pPrediction, pLabels):
     return pPrediction.argmax(dim=1).eq(pLabels).sum().item()
 
 
 test_incorrect_pred = {"images": [], "ground_truths": [], "predicted_vals": []}
 
-#####  New Logic additions
 
+#####  Get the incorrect predictions
 def GetInCorrectPreds(pPrediction, pLabels):
     pPrediction = pPrediction.argmax(dim=1)
     indices = pPrediction.ne(pLabels).nonzero().reshape(-1).tolist()
@@ -34,7 +34,7 @@ def get_incorrect_test_predictions(model, device, test_loader):
 
     return test_incorrect_pred
 
-
+#####  Display the shape and decription of the train data
 def display_train_data(train_data):
 
   print('[Train]')
@@ -46,9 +46,12 @@ def display_train_data(train_data):
   print(' - std:', torch.std(train_data))
   print(' - var:', torch.var(train_data))
 
+#####  Display the image data - used in viewing MNIST dataset
 def show_image_by_index(images, index):  
   plt.imshow(images[index].numpy().squeeze(), cmap='gray_r')
 
+###  De-Normalize the image data - used in viewing CIFAR10 dataset
+### This is needed to view the images
 def de_normalize():
     inv_normalize = torchvision.transforms.Normalize(
         mean=[-0.491/0.247, -0.482/0.243, -0.446/0.261],
@@ -56,6 +59,7 @@ def de_normalize():
     )
     return inv_normalize
 
+### Display the CIFAR10 data images
 def show_cifar10_images(images, labels, classes):
 
   # for i in range(0, 10):
@@ -81,7 +85,7 @@ def show_cifar10_images(images, labels, classes):
     plt.xticks([])
     plt.yticks([])
 
-
+### Display the incorrect predictions of the CIFAR10 data images
 def show_cifar10_incorrect_predictions(incorrect_prediction, classes):
 
   for i in range(0, 10):
@@ -109,7 +113,7 @@ def show_cifar10_incorrect_predictions(incorrect_prediction, classes):
     plt.xticks([])
     plt.yticks([])
 
-
+### Display multiple images - used for MNIST dataset
 def display_multiple_images(images, num_of_images):
     
     figure = plt.figure()
@@ -119,7 +123,7 @@ def display_multiple_images(images, num_of_images):
         plt.axis('off')
         plt.imshow(images[index].numpy().squeeze(), cmap='gray_r')
     
-        
+### Display the model statistics         
 def display_model_stats(train_loss, train_accuracy, test_loss, test_accuracy):
   fig, axs = plt.subplots(2,2,figsize=(15,10))
   axs[0, 0].plot(train_loss)
@@ -131,7 +135,7 @@ def display_model_stats(train_loss, train_accuracy, test_loss, test_accuracy):
   axs[1, 1].plot(test_accuracy)
   axs[1, 1].set_title("Test Accuracy")
 
-
+### Display the incorrect model predictions - used for the MNIST data set
 def plot_test_incorrect_predictions(incorrect_pred):
 
     fig = plt.figure()
