@@ -428,7 +428,7 @@ class Net_15(nn.Module):
         # output_size = 16, rf_out = 11
 
         # CONVOLUTION BLOCK 5
-        self.conv5 = nn.Conv2d(in_channels=32, out_channels=32, kernel_size=(3, 3), padding=0, bias=False)
+        self.conv5 = nn.Conv2d(in_channels=32, out_channels=32, kernel_size=(3, 3), padding=1, bias=False)
         if norm == 'bn':
             self.n5 = nn.BatchNorm2d(32)
         elif norm == 'gn':
@@ -436,7 +436,7 @@ class Net_15(nn.Module):
         elif norm == 'ln':
             self.n5 = nn.GroupNorm(1, 32)
         self.dropout5 = nn.Dropout(drop)
-        # output_size = 14, rf_out = 15
+        # output_size = 16, rf_out = 15
 
 
         # CONVOLUTION BLOCK 6
@@ -448,14 +448,14 @@ class Net_15(nn.Module):
         elif norm == 'ln':
             self.n6 = nn.GroupNorm(1, 32)
         self.dropout6 = nn.Dropout(drop)
-        # output_size = 12, rf_out = 19
+        # output_size = 14, rf_out = 19
 
 
         # TRANSITION BLOCK 2
         self.convblock7 = nn.Sequential(
             nn.Conv2d(in_channels=32, out_channels=8, kernel_size=(1, 1), padding=0, bias=False),
-        ) # output_size = 12, rf_out = 19
-        self.pool2 = nn.MaxPool2d(2, 2) # output_size = 6, rf_out = 23
+        ) # output_size = 14, rf_out = 19
+        self.pool2 = nn.MaxPool2d(2, 2) # output_size = 7, rf_out = 23
 
         # CONVOLUTION BLOCK 8
         self.conv8 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=(3, 3), padding=1, bias=False)
@@ -466,7 +466,7 @@ class Net_15(nn.Module):
         elif norm == 'ln':
             self.n8 = nn.GroupNorm(1, 16)
         self.dropout8 = nn.Dropout(drop)
-        # output_size = 6, rf_out = 31
+        # output_size = 7, rf_out = 31
 
         # CONVOLUTION BLOCK 9
         self.conv9 = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(3, 3), padding=1, bias=False)
@@ -477,7 +477,7 @@ class Net_15(nn.Module):
         elif norm == 'ln':
             self.n9 = nn.GroupNorm(1, 16)
         self.dropout9 = nn.Dropout(drop)
-        # output_size = 6, rf_out = 39
+        # output_size = 7, rf_out = 39
 
         # CONVOLUTION BLOCK 10
         self.conv10 = nn.Conv2d(in_channels=16, out_channels=16, kernel_size=(3, 3), padding=1, bias=False)
@@ -488,11 +488,11 @@ class Net_15(nn.Module):
         elif norm == 'ln':
             self.n10 = nn.GroupNorm(1, 16)
         self.dropout10 = nn.Dropout(drop)
-        # output_size = 6, rf_out = 47
+        # output_size = 7, rf_out = 47
 
         # OUTPUT BLOCK
         self.gap = nn.Sequential(
-            nn.AvgPool2d(kernel_size=6)
+            nn.AvgPool2d(kernel_size=7)
         ) # output_size = 1, rf_out = 47
 
         self.convblock11 = nn.Sequential(
