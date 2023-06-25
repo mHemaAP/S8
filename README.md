@@ -127,8 +127,75 @@ This data set consists of multiple images pertaining to 10 different classes. Th
  'dog': 5000,
  'airplane': 5000}
 
-#### 4.3. Findings on the Normalization Techniques tried
+#### 4.3 Description of the model
 
+- Layer Structure - C1 C2 c3 P1 C3 C4 C5 c6 P2 C7 C8 C9 GAP c10 where c3, c6, c10 are 1x1 convolutions and rest are the 3x3 convolutions. P1 and P2 are the max pool layers
+- Output of the first convolution block, C1 layer, is added to the output of convolution layer C2 and subsequently used
+- Output of the first convolution block, C4 layer, is added to the output of convolution layer C5 and subsequently used
+- These additions are performed to improve the model performance
+- Receptive Field formed at the last layer of this model is 47
+
+#### 4.3. Findings on the Normalization Techniques tried
+- After executing multiple models, it is found that Model-6 which is based on the Net_15 architecture gave best results out of all the models for BN, LN, GN techniques. I tried performing some image augmentations like center crop and resize, changing the color parameters like brightness, hue, saturation and contrast. Looking at the images, it does not look like rotation is required, though it was also tried out. None of the image augmentations tried worked for improving the over fitting performance of the final model for the BN, LN, GN techniques. Hence the basic image augmentation parameters that gave good results are used in the datatransforms.py file
+- Adaptive learning rate with onecycle policy did not much help in pushing the final model for better accuracies. Hence I think some more work on using better adaptive learning algorithm would be needed further. And the final models are using fixed learning rates which were identified to be giving reasonably good metrics with BN, LN, GN techniques.
+- In general it is found that
+        - Over fitting in batch normalization is more than that found when group normalization or layer normalization is used
+        - Learning by the model is slower overall when layer normalization is used
+        - Peforamnces of Group normalization and layer normalizations are a little closer to each other. That means, accuracies and losses and learning by model are looking a little similar
+        - Batch normalization is giving best results out of the 3 techniques.     
+- Following are the target-result-analysis of the final best model for each of the BN, LN, GN techniques
+
+##### 4.3.1 Code Block - Model-6 - Batch Normalization - Layer Additions2 - Final Optimal Model
+
+**Target:**
+- Batch Normalization used
+- Dropout of 0.05 and learning rate 0.1 used
+
+**Results:**
+- Parameters: 37.664K
+- Best Train Accuracy: 78.89%
+- Best Test Accuracy: 75.68% (19th Epoch)
+
+**Analysis:**
+- Model over fitting improved compared to the basic model structure. Still there is some over-fitting of the model 
+- Accuracies and losses are better with batch normalization technique compared to those with layer normalization and group normalization
+- Improvement to this could be scheduling for adaptive learning rate to push the model for better accuracies.
+
+##### 4.3.2 Code Block - Model-6 - Layer Normalization - Layer Additions2 - Final Optimal Model
+
+**Target:**
+- Layer Normalization used
+- Dropout of 0.01 and learning rate 0.01 used
+
+**Results:**
+- Parameters: 37.664K
+- Best Train Accuracy: 71.22%
+- Best Test Accuracy: 69.59% (19th Epoch)
+
+**Analysis:**
+- Model over fitting improved compared to the basic model structure. Still there is some over-fitting of the model.
+- Over-fitting is lesser compared to that found with batch normalization techniques
+- Learning with layer normalization is slower compared to that with batch normalization technique 
+- Accuracies and losses are lower with group normalization technique compared to those with batch normalization
+- Improvement to this could be scheduling for adaptive learning rate to push the model for better accuracies.
+  
+##### 4.3.3 Code Block - Model-6 - Group Normalization - Layer Additions2 - Final Optimal Model
+
+**Target:**
+- Group Normalization used with group size 2
+- Dropout of 0.01 and learning rate 0.1 used
+
+**Results:**
+- Parameters: 37.664K
+- Best Train Accuracy: 74.26%
+- Best Test Accuracy: 72.46% (19th Epoch)
+
+**Analysis:**
+- Model over fitting improved compared to the basic model structure. Still there is some over-fitting of the model
+- Over-fitting is lesser compared to that found with batch normalization techniques
+- Learning with group normalization is slower compared to that with batch normalization technique 
+- Accuracies and losses are lower with group normalization technique compared to those with batch normalization
+- Improvement to this could be scheduling for adaptive learning rate to push the model for better accuracies. 
 
 #### 4.4. Graphs of the Normalization Techniques tried [Best Model plots shown below]
 
